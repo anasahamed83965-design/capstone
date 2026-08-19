@@ -1,0 +1,38 @@
+# Render blueprint for the Spring Boot backend (Review-II, section 9.4).
+# Create a Web Service from this repo on Render; Render reads this file automatically.
+# Then add the env vars below (Render Dashboard -> Environment) and a managed
+# MySQL/Postgres instance for production data (local H2 file DB does not persist
+# on Render's ephemeral disk).
+
+services:
+  - type: web
+    name: babysitter-api
+    runtime: java
+    rootDir: backend
+    buildCommand: mvn -B clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    healthCheckPath: /api/health
+    envVars:
+      - key: JAVA_VERSION
+        value: 21
+      - key: PORT
+        value: 8080
+      # Production database (managed MySQL on Railway/Clever Cloud/Aiven):
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      - key: MAIL_HOST
+        value: smtp.gmail.com
+      - key: MAIL_PORT
+        value: 587
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false

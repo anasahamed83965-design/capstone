@@ -1,0 +1,84 @@
+// ER Diagram - Babysitter Booking Platform
+// Open in dbdiagram.io or export to PNG/PDF there.
+
+Table users {
+  id int [pk, increment]
+  full_name varchar(100)
+  email varchar(150) [unique]
+  password_hash varchar(255)
+  phone varchar(20)
+  role enum('PARENT','BABYSITTER','ADMIN')
+  is_active bool [default: true]
+  created_at timestamp [default: `now()`]
+}
+
+Table babysitters {
+  id int [pk, increment]
+  user_id int [unique]
+  bio text
+  experience_years int [default: 0]
+  hourly_rate decimal(10,2)
+  is_verified bool [default: false]
+  avg_rating double [default: 0]
+  created_at timestamp [default: `now()`]
+}
+
+Table availability_slots {
+  id int [pk, increment]
+  babysitter_id int
+  start_time datetime
+  end_time datetime
+  is_booked bool [default: false]
+  created_at timestamp [default: `now()`]
+}
+
+Table bookings {
+  id int [pk, increment]
+  parent_id int
+  babysitter_id int
+  slot_id int [unique]
+  start_time datetime
+  end_time datetime
+  status enum('PENDING','CONFIRMED','COMPLETED','CANCELLED') [default: 'PENDING']
+  total_amount decimal(10,2)
+  notes varchar(500)
+  created_at timestamp [default: `now()`]
+}
+
+Table payments {
+  id int [pk, increment]
+  booking_id int [unique]
+  amount decimal(10,2)
+  method varchar(50)
+  status enum('PENDING','PAID','REFUNDED') [default: 'PENDING']
+  transaction_ref varchar(100)
+  paid_at timestamp [null]
+}
+
+Table reviews {
+  id int [pk, increment]
+  booking_id int [unique]
+  reviewer_id int
+  rating int
+  comment varchar(1000)
+  created_at timestamp [default: `now()`]
+}
+
+Table notifications {
+  id int [pk, increment]
+  user_id int
+  title varchar(150)
+  message varchar(1000)
+  is_read bool [default: false]
+  created_at timestamp [default: `now()`]
+}
+
+Ref: users.id < babysitters.user_id
+Ref: babysitters.id < availability_slots.babysitter_id
+Ref: users.id < bookings.parent_id
+Ref: babysitters.id < bookings.babysitter_id
+Ref: availability_slots.id < bookings.slot_id
+Ref: bookings.id < payments.booking_id
+Ref: bookings.id < reviews.booking_id
+Ref: users.id < reviews.reviewer_id
+Ref: users.id < notifications.user_id
