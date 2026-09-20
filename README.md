@@ -4,6 +4,7 @@ An on-demand childcare booking platform where parents find verified babysitters 
 
 ## Live Demo
 
+- Repository: https://github.com/Aashik029/capstone
 - Frontend: `TODO — deploy to Vercel, then paste the public URL here`
 - Backend API: `TODO — deploy to Render, then paste the public URL here`
 - Video demo (2–4 min): `TODO — record with Loom/phone screen-recorder and link it here`
@@ -155,6 +156,7 @@ Test layout mirrors the code: one test class per service module under `backend/s
 
 ## Deployment
 
+- **Repository**: https://github.com/Aashik029/capstone
 - **CI**: push/PR to `main` runs `.github/workflows/backend.yml` (`mvn -B clean verify`) and `.github/workflows/frontend.yml` (`npm install` → `npm run lint` → `npm run build`). Red tests or lint errors block the merge.
 - **CD**: on push to `main` (after green CI), the backend triggers the Render deploy hook (`RENDER_DEPLOY_HOOK` secret) and the frontend deploys to Vercel (`VERCEL_TOKEN` secret). Secrets live in GitHub Settings → Secrets and variables → Actions, never in YAML.
 - **Backend (Render)**: `render.yaml` blueprint (Java 21, `rootDir: backend`, health check `/api/health`). Set `DB_URL`/`DB_USERNAME`/`DB_PASSWORD` to a managed MySQL instance (Railway/Clever Cloud/Aiven), `JWT_SECRET` to a long random string, and `CORS_ALLOWED_ORIGINS` to the Vercel URL.
