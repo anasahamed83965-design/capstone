@@ -5,7 +5,7 @@ An on-demand childcare booking platform where parents find verified babysitters 
 ## Live Demo
 
 - Repository: https://github.com/anasahamed83965-design/capstone
-- Frontend: `TODO — deploy to Vercel, then paste the public URL here`
+- Frontend: https://frontend-sand-three-72.vercel.app
 - Backend API: `TODO — deploy to Render, then paste the public URL here`
 - Video demo (2–4 min): `TODO — record with Loom/phone screen-recorder and link it here`
 
