@@ -4,9 +4,10 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL:jdbc:h2:file:./data/babysitter_db;DB_CLOSE_DELAY=-1;AUTO_SERVER=TRUE}
-    username: ${DB_USERNAME:sa}
-    password: ${DB_PASSWORD:}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/babysitter_db}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -14,11 +15,11 @@ spring:
     properties:
       hibernate:
         format_sql: false
+        # dialect intentionally omitted: Hibernate auto-detects PostgreSQL (explicit value logs HHH90000025)
   h2:
     console:
-      # Local dev keeps the console on; production MUST set H2_CONSOLE_ENABLED=false
-      # (an open DB console on a public URL is a security hole).
-      enabled: ${H2_CONSOLE_ENABLED:true}
+      # Enable only if you need H2 console for debugging (set H2_CONSOLE_ENABLED=true locally). Disabled by default on Postgres.
+      enabled: ${H2_CONSOLE_ENABLED:false}
       path: /h2-console
       settings:
         web-allow-others: true

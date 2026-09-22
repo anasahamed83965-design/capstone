@@ -50,10 +50,18 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- H2 file-based DB (default) + console servlet -->
+        <!-- PostgreSQL (primary DB) -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- H2 file-based DB + console servlet (for local fallback / tests) -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
