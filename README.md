@@ -5,9 +5,9 @@ An on-demand childcare booking platform where parents find verified babysitters 
 ## Live Demo
 
 - Repository: https://github.com/anasahamed83965-design/capstone
-- Frontend: https://frontend-anasahamed83965-designs-projects.vercel.app
-- Backend API: https://capstone-production-2ea5.up.railway.app (health: `/api/health`, docs: `/swagger-ui.html`)
-- Database: PostgreSQL 17 on Railway (same project, internal `DATABASE_URL`)
+- Frontend: https://frontend-anasahamed83965-designs-projects.vercel.app (Vercel)
+- Backend API: https://babysitter-api-aaic.onrender.com (Render, health: `/api/health`, docs: `/swagger-ui.html`)
+- Database: PostgreSQL 17 on Railway (public TCP proxy; Render connects via JDBC `DB_URL`)
 - Video demo (2–4 min): `TODO — record with Loom/phone screen-recorder and link it here`
 
 ## Overview
