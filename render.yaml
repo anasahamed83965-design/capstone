@@ -1,23 +1,17 @@
 # Render blueprint for the Spring Boot backend (Review-II, section 9.4).
-# Create a Web Service from this repo on Render; Render reads this file automatically.
-# Then add the env vars below (Render Dashboard -> Environment) and a managed
-# MySQL/Postgres instance for production data (local H2 file DB does not persist
-# on Render's ephemeral disk).
+# New Blueprint -> connect this repo and Render builds the Dockerfile at the
+# repo root. Then fill in the sync:false values below (Dashboard -> Environment).
+# Database lives on Railway Postgres; Render connects over its public TCP proxy.
+# NOTE: Render has no native Java runtime, so this uses runtime: docker.
 
 services:
   - type: web
     name: babysitter-api
-    runtime: java
-    rootDir: backend
-    buildCommand: mvn -B clean package -DskipTests
-    startCommand: java -jar target/*.jar
+    runtime: docker
     healthCheckPath: /api/health
     envVars:
-      - key: JAVA_VERSION
-        value: 21
-      - key: PORT
-        value: 8080
-      # Production database (managed MySQL on Railway/Clever Cloud/Aiven):
+      # JDBC URL with jdbc: prefix, e.g.
+      # jdbc:postgresql://<proxy-host>:<proxy-port>/railway
       - key: DB_URL
         sync: false
       - key: DB_USERNAME
@@ -29,6 +23,7 @@ services:
       # Security: never expose the H2 console on the public backend.
       - key: H2_CONSOLE_ENABLED
         value: false
+      # Comma-separated; must include the Vercel frontend origin(s).
       - key: CORS_ALLOWED_ORIGINS
         sync: false
       - key: MAIL_HOST
