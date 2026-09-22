@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: '20' }
+        with: { node-version: '22' }
       - run: npm install
       - name: Run Linter
         run: npm run lint
@@ -28,5 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Deploy to Vercel
+        # NOTE: no working-directory here on purpose. The CLI runs at the repo
+        # root and the Vercel project's Root Directory (frontend) is applied
+        # on top - running inside frontend/ would resolve frontend/frontend.
         run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
-        working-directory: frontend
