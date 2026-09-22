@@ -16,7 +16,9 @@ spring:
         format_sql: false
   h2:
     console:
-      enabled: true
+      # Local dev keeps the console on; production MUST set H2_CONSOLE_ENABLED=false
+      # (an open DB console on a public URL is a security hole).
+      enabled: ${H2_CONSOLE_ENABLED:true}
       path: /h2-console
       settings:
         web-allow-others: true
