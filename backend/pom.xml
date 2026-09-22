@@ -57,11 +57,14 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- H2 file-based DB + console servlet (for local fallback / tests) -->
+        <!-- H2 file-based DB + console servlet (for local fallback / tests).
+             Compile scope (not runtime): H2ConsoleConfig references
+             org.h2.server.web.JakartaWebServlet, so H2 must be on the
+             compile classpath or clean builds fail. The console itself
+             stays disabled unless H2_CONSOLE_ENABLED=true. -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
