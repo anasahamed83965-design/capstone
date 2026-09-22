@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.BabysitterDto;
 import com.college.babysitter.dto.BabysitterProfileRequest;
 import com.college.babysitter.dto.SlotDto;
@@ -23,6 +24,7 @@ import java.util.List;
  * (profile and availability slots). Read endpoints stay public so parents
  * can browse without an account; writes require a babysitter JWT.
  */
+@Tag(name = "Babysitters", description = "Public directory plus the sitter's own profile and slots")
 @RestController
 @RequestMapping("/api/babysitters")
 public class BabysitterController {

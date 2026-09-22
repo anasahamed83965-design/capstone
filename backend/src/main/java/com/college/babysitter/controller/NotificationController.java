@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.NotificationDto;
 import com.college.babysitter.security.AppUserPrincipal;
 import com.college.babysitter.security.SecurityUtils;
@@ -14,6 +15,7 @@ import java.util.List;
  * In-app notification inbox for the logged-in user. Notifications are created
  * as a side effect of booking events (see {@code BookingService}).
  */
+@Tag(name = "Notifications", description = "In-app inbox fed by booking events")
 @RestController
 @RequestMapping("/api/notifications")
 public class NotificationController {

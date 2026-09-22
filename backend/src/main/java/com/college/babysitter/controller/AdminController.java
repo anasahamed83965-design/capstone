@@ -2,6 +2,7 @@ package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.AdminStatsDto;
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.BabysitterDto;
 import com.college.babysitter.dto.BookingDto;
 import com.college.babysitter.dto.UserDto;
@@ -18,6 +19,7 @@ import java.util.List;
  * Platform-operator endpoints. The class-level {@code @PreAuthorize} keeps
  * every method admin-only, so verification and oversight stay in one place.
  */
+@Tag(name = "Admin", description = "Verification, users, bookings and stats (ADMIN only)")
 @RestController
 @RequestMapping("/api/admin")
 @PreAuthorize("hasRole('ADMIN')")

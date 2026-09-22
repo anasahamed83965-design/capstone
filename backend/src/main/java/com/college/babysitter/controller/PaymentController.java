@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.PaymentDto;
 import com.college.babysitter.dto.PaymentRequest;
 import com.college.babysitter.security.AppUserPrincipal;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * Sandbox payment endpoints. No real money moves: these calls only record
  * what is owed and what was settled, so both sides stay informed.
  */
+@Tag(name = "Payments", description = "Sandbox payments: record what is owed, mark what is paid")
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentController {

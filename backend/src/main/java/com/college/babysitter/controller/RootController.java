@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import java.util.Map;
  * Public landing resource at {@code /} so opening the bare backend URL
  * shows API information instead of a bare 403 from the security chain.
  */
+@Tag(name = "System", description = "Landing page and liveness probe (public)")
 @RestController
 public class RootController {
 

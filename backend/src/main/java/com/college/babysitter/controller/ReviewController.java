@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.ReviewDto;
 import com.college.babysitter.dto.ReviewRequest;
 import com.college.babysitter.security.AppUserPrincipal;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * Review endpoints, nested under bookings because a review always belongs
  * to exactly one completed booking (which is also what blocks duplicates).
  */
+@Tag(name = "Reviews", description = "One 1-5 star review per completed booking, by the booking parent")
 @RestController
 @RequestMapping("/api/bookings/{bookingId}/reviews")
 public class ReviewController {

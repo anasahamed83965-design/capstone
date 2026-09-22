@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.AuthResponse;
 import com.college.babysitter.dto.LoginRequest;
 import com.college.babysitter.dto.SignupRequest;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * happens here via {@code @Valid}, all account logic lives in
  * {@link com.college.babysitter.service.AuthService}.
  */
+@Tag(name = "Auth", description = "Signup, login and admin seeding (public)")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

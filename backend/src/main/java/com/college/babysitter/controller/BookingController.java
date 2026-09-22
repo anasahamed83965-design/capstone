@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import com.college.babysitter.dto.BookingDto;
 import com.college.babysitter.dto.BookingRequest;
 import com.college.babysitter.dto.StatusRequest;
@@ -19,6 +20,7 @@ import java.util.List;
  * through PENDING -&gt; CONFIRMED -&gt; COMPLETED/CANCELLED with role checks
  * enforced in {@link com.college.babysitter.service.BookingService}.
  */
+@Tag(name = "Bookings", description = "Create bookings and move them through PENDING to COMPLETED")
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {

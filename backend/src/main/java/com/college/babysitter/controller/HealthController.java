@@ -1,6 +1,7 @@
 package com.college.babysitter.controller;
 
 import com.college.babysitter.dto.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.Map;
  * Public on purpose so load balancers, hosting platforms and mentors
  * can check the service without logging in.
  */
+@Tag(name = "System", description = "Landing page and liveness probe (public)")
 @RestController
 @RequestMapping("/api/health")
 public class HealthController {
