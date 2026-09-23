@@ -3,6 +3,8 @@ package com.college.babysitter.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class Payment {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "booking_id", unique = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Booking booking;
 
     @Column(nullable = false, precision = 10, scale = 2)

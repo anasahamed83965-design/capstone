@@ -3,6 +3,8 @@ package com.college.babysitter.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 
@@ -22,6 +24,7 @@ public class Babysitter {
 
     @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "user_id", unique = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
     @Column(columnDefinition = "TEXT")

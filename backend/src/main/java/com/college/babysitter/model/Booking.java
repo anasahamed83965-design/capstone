@@ -3,6 +3,8 @@ package com.college.babysitter.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -23,15 +25,18 @@ public class Booking {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "parent_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User parent;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "babysitter_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Babysitter babysitter;
 
     // slot is snapshotted so history survives even if the slot is later edited
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "slot_id", unique = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private AvailabilitySlot slot;
 
     @Column(nullable = false)

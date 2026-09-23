@@ -3,6 +3,8 @@ package com.college.babysitter.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -22,10 +24,12 @@ public class Review {
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "booking_id", unique = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Booking booking;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "reviewer_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User reviewer;
 
     @Column(nullable = false)
