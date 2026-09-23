@@ -25,10 +25,18 @@ jobs:
     needs: lint-and-build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     steps:
       - uses: actions/checkout@v4
+      # Vercel is git-connected and auto-deploys on push, so the CLI step is
+      # a belt-and-suspenders redeploy. Skip (green) without the secret.
       - name: Deploy to Vercel
         # NOTE: no working-directory here on purpose. The CLI runs at the repo
         # root and the Vercel project's Root Directory (frontend) is applied
         # on top - running inside frontend/ would resolve frontend/frontend.
-        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        if: env.VERCEL_TOKEN != ''
+        run: npx vercel --prod --token="$VERCEL_TOKEN" --yes
+      - name: Vercel auto-deploy note
+        if: env.VERCEL_TOKEN == ''
+        run: echo "VERCEL_TOKEN not set; Vercel auto-deploys from GitHub instead."

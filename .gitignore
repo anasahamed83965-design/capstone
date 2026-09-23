@@ -24,3 +24,7 @@ Thumbs.db
 
 # --- logs ---
 logs/
+
+# --- local tooling ---
+.playwright-mcp/
+frontend/.vercel/

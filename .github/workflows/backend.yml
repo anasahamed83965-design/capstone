@@ -22,6 +22,14 @@ jobs:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    env:
+      RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
     steps:
+      # Render is connected to the repo and auto-deploys on push, so this
+      # hook is optional. Skip (green) when the secret is not configured.
       - name: Trigger Render Deploy Hook
-        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+        if: env.RENDER_DEPLOY_HOOK != ''
+        run: curl -X POST "$RENDER_DEPLOY_HOOK"
+      - name: Render auto-deploy note
+        if: env.RENDER_DEPLOY_HOOK == ''
+        run: echo "RENDER_DEPLOY_HOOK not set; Render auto-deploys from GitHub instead."
