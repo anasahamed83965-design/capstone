@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -13,6 +13,11 @@ export default function Signup() {
     role: 'PARENT',
   });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [slow, setSlow] = useState(false);
+  const slowTimer = useRef(null);
+
+  useEffect(() => () => clearTimeout(slowTimer.current), []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -20,7 +25,13 @@ export default function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
     setError('');
+    setLoading(true);
+    setSlow(false);
+    // After 8s the server is probably cold-starting; tell the user so the
+    // wait feels intentional instead of like a frozen page.
+    slowTimer.current = setTimeout(() => setSlow(true), 8000);
     try {
       const data = await signup(form);
       if (data.role === 'BABYSITTER') {
@@ -30,6 +41,9 @@ export default function Signup() {
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Signup failed. Please try again.');
+      setLoading(false);
+      setSlow(false);
+      clearTimeout(slowTimer.current);
     }
   };
 
@@ -93,9 +107,25 @@ export default function Signup() {
                   <option value="BABYSITTER">Babysitter offering care</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-primary w-100">
-                Create account
+              <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+                {loading ? (
+                  <>
+                    <span
+                      className="spinner-border spinner-border-sm me-2"
+                      aria-hidden="true"
+                    ></span>
+                    Creating account…
+                  </>
+                ) : (
+                  'Create account'
+                )}
               </button>
+              {loading && slow && (
+                <div className="alert alert-warning mt-2 mb-0 py-2 small" role="status">
+                  Still connecting — the server may be waking up (first request can
+                  take up to about a minute). Please wait…
+                </div>
+              )}
             </form>
             <p className="mt-3 mb-0 text-center small">
               Already registered? <Link to="/login">Log in</Link>

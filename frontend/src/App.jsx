@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import client from './api/client';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
@@ -10,6 +12,13 @@ import BabysitterDashboard from './pages/BabysitterDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
+  // Ping the API as soon as the app opens: on Render's free tier the
+  // instance sleeps after ~15 min idle, so this wake-up runs while the
+  // user is still browsing and makes their first login/signup fast.
+  useEffect(() => {
+    client.get('/health').catch(() => {});
+  }, []);
+
   return (
     <>
       <Navbar />
